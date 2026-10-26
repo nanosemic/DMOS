@@ -1,6 +1,6 @@
 import { useRef } from 'react'
-import { collaborators, partners } from '../data/site'
-import { useCardsReveal } from '../hooks'
+import { collaborators, partners } from '../../../data/site'
+import { useCardsReveal } from '../../../hooks'
 
 export default function Collaborations() {
   const ref = useRef(null)

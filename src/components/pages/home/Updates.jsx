@@ -1,6 +1,6 @@
 import { useRef } from 'react'
-import { news } from '../data/site'
-import { useCardsReveal } from '../hooks'
+import { news } from '../../../data/site'
+import { useCardsReveal } from '../../../hooks'
 
 export default function Updates() {
   const ref = useRef(null)

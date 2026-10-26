@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { clamp01, smoothstep, useScrub } from '../hooks'
+import { clamp01, smoothstep, useScrub } from '../../../hooks'
 import GenesisScene from './GenesisScene'
 
 /*

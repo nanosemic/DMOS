@@ -1,6 +1,6 @@
 import { useRef } from 'react'
-import { publications } from '../data/site'
-import { useCardsReveal } from '../hooks'
+import { publications } from '../../../data/site'
+import { useCardsReveal } from '../../../hooks'
 
 // Bold the PI's name inside an author string.
 function Authors({ text }) {

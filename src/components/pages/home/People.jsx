@@ -1,6 +1,6 @@
 import { useRef } from 'react'
-import { group, pi, scholars } from '../data/site'
-import { useCardsReveal } from '../hooks'
+import { group, pi, scholars } from '../../../data/site'
+import { useCardsReveal } from '../../../hooks'
 
 const initials = (name) =>
   name

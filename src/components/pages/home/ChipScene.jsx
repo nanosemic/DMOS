@@ -7,7 +7,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js'
-import { prefersReducedMotion } from '../hooks'
+import { prefersReducedMotion } from '../../../hooks'
 
 /*
  * Real-time "header film" of a Nano Semic / D-MOS power chip, cut like a product video:

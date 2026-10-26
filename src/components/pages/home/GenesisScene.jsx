@@ -5,7 +5,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
-import { prefersReducedMotion } from '../hooks'
+import { prefersReducedMotion } from '../../../hooks'
 
 /*
  * Real-time stand-in for Arox's "celestial" event film: tilted rings of particle streams that

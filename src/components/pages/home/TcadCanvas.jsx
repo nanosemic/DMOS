@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { prefersReducedMotion } from '../hooks'
+import { prefersReducedMotion } from '../../../hooks'
 
 // A monochrome "TCAD" cross-section of a charge-sheet superjunction: drift-region pillars,
 // animated equipotential lines and carriers drifting through the field. Plain 2D canvas.

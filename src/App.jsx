@@ -1,28 +1,22 @@
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import Statement from './components/Statement'
-import Research from './components/Research'
-import People from './components/People'
-import Publications from './components/Publications'
-import Collaborations from './components/Collaborations'
-import Updates from './components/Updates'
-import Genesis from './components/Genesis'
-import Footer from './components/Footer'
-
+import Home from './pages/Home'
+import Navbar from "./components/Navbar"
+import Footer from "./components/Footer"
+import { Route, Routes } from 'react-router-dom'
 export default function App() {
   return (
     <>
       <Navbar />
-      <main>
-        <Hero />
-        <Statement />
-        <Research />
-        <People />
-        <Publications />
-        <Collaborations />
-        <Updates />
-        <Genesis />
-      </main>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        
+        {/* for future work */}
+        {/* <Route path="/research" element={<Home />} />
+        <Route path="/projects" element={<Home />} />
+        <Route path="/publication" element={<Home />} />
+        <Route path="/teams" element={<Home />} />
+        <Route path="/news" element={<Home />} /> */}
+
+      </Routes>
       <Footer />
     </>
   )

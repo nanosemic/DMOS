@@ -1,74 +1,129 @@
+
 import { group, navLinks, pi } from '../data/site'
 import { useReveal } from '../hooks'
 
-// Arox footer: one 5%-white panel (8px radius) holding link columns and a full-width wordmark.
 const YEAR = new Date().getFullYear()
 
 function Column({ title, children }) {
   return (
-    <div>
-      <div className="text-[16px] leading-6 font-medium text-white uppercase">{title}</div>
-      <div className="mt-5 flex flex-col gap-3 text-[14px] leading-[1.2] text-[rgba(252,252,252,0.72)]">{children}</div>
+    <div className="min-w-0">
+      <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-white/90">
+        {title}
+      </h3>
+      <div className="mt-5 flex flex-col items-start gap-3 text-sm leading-relaxed text-white/60">
+        {children}
+      </div>
     </div>
   )
 }
 
-const linkCls = 'w-fit transition-colors hover:text-white'
+const linkCls =
+  'w-fit max-w-full break-words transition-colors duration-200 hover:text-white focus-visible:text-white focus-visible:outline-none'
 
 export default function Footer() {
   const [markRef, markShown] = useReveal(0.3)
+
   return (
-    <footer id="contact" className="bg-ink p-4 sm:p-8">
-      <div className="card flex min-h-[calc(100svh-4rem)] flex-col rounded-[8px] p-[27px]">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[repeat(3,minmax(0,1fr))_minmax(0,1.4fr)]">
-          <Column title="Site index">
+    <footer id="contact" className="bg-ink px-3 py-3 sm:px-6 sm:py-6 lg:px-8">
+      <div className="card overflow-hidden bg-zinc-900 rounded-xl border border-white/[0.09]">
+        {/* Footer heading */}
+        <div className="flex flex-col gap-3 border-b border-white/10 px-5 py-7 sm:px-8 sm:py-9 lg:flex-row lg:items-end lg:justify-between lg:px-10">
+          <div>
+            <p className="text-[10px] font-medium uppercase tracking-[0.24em] text-white/45">
+              Get in touch
+            </p>
+            <h2 className="mt-2 text-2xl font-normal tracking-tight text-white sm:text-3xl">
+              Research. Build. Discover.
+            </h2>
+          </div>
+          <a
+            href={`mailto:${group.email}`}
+            className="w-fit text-sm text-white/75 underline decoration-white/25 underline-offset-4 transition-colors hover:text-white"
+          >
+            {group.email}
+          </a>
+        </div>
+
+        {/* Link columns */}
+        <div className="grid grid-cols-1 gap-9 px-5 py-8 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-10 sm:px-8 sm:py-10 lg:grid-cols-4 lg:gap-10 lg:px-10 lg:py-12">
+          <Column title="Explore">
             <a href="#top" className={linkCls}>Home</a>
             {navLinks.map((l) => (
-              <a key={l.href} href={l.href} className={linkCls}>{l.label}</a>
+              <a key={l.href} href={l.href} className={linkCls}>
+                {l.label}
+              </a>
             ))}
           </Column>
 
-          <Column title="Profiles">
+          <Column title="Connect">
             {pi.links.map((l) => (
-              <a key={l.label} href={l.href} target="_blank" rel="noreferrer" className={linkCls}>{l.label}</a>
+              <a
+                key={l.label}
+                href={l.href}
+                target="_blank"
+                rel="noreferrer"
+                className={linkCls}
+              >
+                {l.label}
+                <span className="ml-1 text-white/30">↗</span>
+              </a>
             ))}
-            <a href="https://nanosemic.co.in" target="_blank" rel="noreferrer" className={linkCls}>Nano Semic</a>
+            <a
+              href="https://nanosemic.co.in"
+              target="_blank"
+              rel="noreferrer"
+              className={linkCls}
+            >
+              Nano Semic <span className="ml-1 text-white/30">↗</span>
+            </a>
           </Column>
 
-          <Column title="Lab">
-            <span>D-MOS Research Group</span>
+          <Column title="Our lab">
+            <span className="text-white/85">D-MOS Research Group</span>
             <span>{group.school}</span>
             <span>{group.office}</span>
           </Column>
 
-          <Column title="Contact & join us">
-            <span>Ph.D. and MS(R) positions, M.Tech and B.Tech projects, and industry collaboration</span>
-            <a href={`mailto:${group.email}`} className={`${linkCls} text-[18px] text-white underline decoration-white/30 underline-offset-4`}>
-              {group.email}
-            </a>
-            <a href={group.admissions} target="_blank" rel="noreferrer" className={linkCls}>
-              Ph.D. / MS(R) admissions at SECS ↗
+          <Column title="Work with us">
+            <p className="max-w-sm text-white/60">
+              Ph.D. and MS(R) positions, M.Tech and B.Tech projects, and
+              industry collaboration.
+            </p>
+            <a
+              href={group.admissions}
+              target="_blank"
+              rel="noreferrer"
+              className={`${linkCls} mt-1 text-white/85`}
+            >
+              Admissions at SECS <span className="ml-1">↗</span>
             </a>
           </Column>
         </div>
 
-        {/* Wordmark */}
-        <div className="mt-auto pt-20">
-          {/* Wordmark parts rise into place one after another, like Arox's footer logo */}
+        {/* Oversized wordmark */}
+        <div className="border-t border-white/10 px-4 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pt-12">
           <div
             ref={markRef}
             aria-hidden="true"
-            className={`rise-parts ${markShown ? 'is-in' : ''} flex items-end justify-between text-[15vw] leading-[0.8] font-normal tracking-[-0.045em] whitespace-nowrap text-white select-none lg:text-[min(17.5vw,22rem)]`}
+            className={`rise-parts ${markShown ? 'is-in' : ''} flex items-end gap-2 overflow-hidden whitespace-nowrap text-[18vw] font-normal leading-[0.82] tracking-[-0.075em] text-white select-none sm:gap-4 lg:text-[min(16.5vw,15rem)]`}
           >
-            <img src={group.logo} alt="" className="mb-[0.04em] h-[0.86em] w-auto" />
+            <img
+              src={group.logo}
+              alt=""
+              className="mb-[0.06em] h-[0.65em] w-auto shrink-0 object-contain"
+            />
             <span>Akshay</span>
-            <span>K.</span>
+            <span className="tracking-[-0.08em]">K.</span>
           </div>
-          <div className="mt-6 flex flex-col justify-between gap-2 text-[12px] leading-[1.2] text-[#a2a2a3] sm:flex-row">
-            <span>
-              ©{YEAR} {group.fullName} · {group.institute}
-            </span>
-            <span>{group.school}</span>
+
+          {/* Copyright and credits */}
+          <div className="mt-7 flex flex-col gap-3 border-t border-white/[0.08] py-5 text-[11px] leading-relaxed text-white/40 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+            <p>
+              © {YEAR} {group.fullName}
+              <span className="mx-2 text-white/20">/</span>
+              {group.institute}
+            </p>
+            <p>{group.school}</p>
           </div>
         </div>
       </div>

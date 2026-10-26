@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import ChipScene from './ChipScene'
-import { clamp01, onFrame, prefersReducedMotion } from '../hooks'
-import { hero, pi } from '../data/site'
+import { clamp01, onFrame, prefersReducedMotion } from '../../../hooks'
+import { hero, pi } from '../../../data/site'
 
 const DESKTOP = 1024
 const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)

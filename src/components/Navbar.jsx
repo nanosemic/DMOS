@@ -22,10 +22,10 @@ export default function Navbar() {
   }, [])
 
   return (
-    <header className="fixed inset-x-0 top-4 z-50 px-4">
+    <header className="fixed inset-x-0 top-4 z-50 px-4 w-full flex justify-center items-center">
       <nav
-        className={`mx-auto flex max-w-fit items-stretch gap-1.5 transition-transform duration-500 ${
-          scrolled ? 'scale-[0.97]' : ''
+        className={`mx-auto  flex items-stretch justify-between gap-1.5 transition-all duration-500 ${
+          scrolled ? 'w-[70vh]' : 'w-[100vh]'
         }`}
       >
         <a href="#top" className="pill flex items-center px-5 py-3 text-sm text-bone">

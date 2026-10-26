@@ -1,6 +1,6 @@
 import { useRef } from 'react'
-import { clamp01, useCardsReveal, useScrub } from '../hooks'
-import { intro, stats } from '../data/site'
+import { clamp01, useCardsReveal, useScrub } from '../../../hooks'
+import { intro, stats } from '../../../data/site'
 import TcadCanvas from './TcadCanvas'
 
 // Arox "studio intro". The section slides up over the pinned hero. Its media card grows from

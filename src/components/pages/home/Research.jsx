@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
-import { projects, researchIntro, themes } from '../data/site'
-import { clamp01, smoothstep, useCardsReveal, useScrub } from '../hooks'
+import { projects, researchIntro, themes } from '../../../data/site'
+import { clamp01, smoothstep, useCardsReveal, useScrub } from '../../../hooks'
 import ThemeArt from './ThemeArt'
 
 const DESKTOP = 1024
@@ -116,8 +116,8 @@ export default function Research() {
                     key={t.id}
                     type="button"
                     tabIndex={-1}
-                    onMouseEnter={() => setActive(i)}
-                    onClick={() => setActive(i)}
+                    // onMouseEnter={() => setActive(i)}
+                    // onClick={() => setActive(i)}
                     className={`card group relative h-full min-w-0 basis-0 self-start overflow-hidden text-left transition-[flex-grow,height] duration-700 ease-[cubic-bezier(0.2,0.7,0.2,1)] ${height} ${
                       on ? 'grow-[3.5]' : 'grow'
                     }`}
