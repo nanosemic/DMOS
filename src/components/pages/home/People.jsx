@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { group, pi, scholars } from '../../../data/site'
 import { useCardsReveal } from '../../../hooks'
+import { Dot } from 'lucide-react'
 
 const initials = (name) =>
   name
@@ -28,7 +29,7 @@ export default function People() {
   useCardsReveal(teamRef)
 
   return (
-    <section id="people" className="bg-ink px-4 py-16 sm:px-8 md:py-24">
+    <section id="people" className="bg-ink px-4 py-16 sm:px-8 md:py-24 ">
       <div className="mx-auto max-w-[1440px]">
         {/* Principal investigator */}
         <div ref={piRef} className="grid gap-5 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
@@ -72,14 +73,14 @@ export default function People() {
         </div>
 
         {/* Scholars */}
-        <div className="mt-24 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+        <div className="mt-36 flex flex-col justify-between gap-4 md:flex-row md:items-end ">
           <h3 className="card-title">
             Ph.D. <span className="font-serif italic">scholars</span>
           </h3>
-          <p className="card-text max-w-sm">
-            Four Ph.D. scholars, together with several masters and bachelors students, working on TCAD simulation,
-            fabrication and characterisation.
-          </p>
+        <p className="card-text max-w-5xl">
+          Our research team works across power semiconductor devices, TCAD simulation,
+          fabrication and characterisation, advancing next-generation device technologies.
+        </p>
         </div>
 
         <div ref={teamRef} className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -87,25 +88,19 @@ export default function People() {
             <article key={s.name} className="card group flex flex-col overflow-hidden">
               <Portrait name={s.name} className="aspect-[4/3] transition-transform duration-700 group-hover:scale-[1.03]" />
               <div className="flex flex-1 flex-col p-6">
-                <p className="eyebrow">Since {s.since}</p>
                 <h4 className="mt-2 text-xl text-white">{s.name}</h4>
-                <p className="mt-1 text-[14px] text-white/50">{s.role}</p>
-                <p className="card-text mt-5">{s.topic}</p>
-                {s.badge && <p className="eyebrow mt-5 text-white/80">★ {s.badge}</p>}
-                {s.scholar && (
-                  <a
-                    href={s.scholar}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-auto pt-5 text-[14px] text-white/70 underline-offset-4 hover:text-white hover:underline"
-                  >
-                    Google Scholar ↗
-                  </a>
-                )}
+
+                <p className="mt-1 text-[14px] text-zinc-300 tracking-wide ">{s.college}</p>
+                <div className='flex gap-1 items-center'>
+                <span className="mt-1 text-[14px] text-white/50 inline-flex">{s.role}</span>
+                <Dot size={14} className='text-zinc-500'/>
+                <span className="mt-1 text-[14px] text-white/50 inline-flex">{s.department}</span>
+                </div>
               </div>
             </article>
           ))}
         </div>
+
       </div>
     </section>
   )

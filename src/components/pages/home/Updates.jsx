@@ -1,3 +1,4 @@
+
 import { useRef } from 'react'
 import { news } from '../../../data/site'
 import { useCardsReveal } from '../../../hooks'
@@ -7,34 +8,74 @@ export default function Updates() {
   useCardsReveal(ref)
 
   return (
-    <section id="news" className="bg-ink px-4 py-16 sm:px-8 md:py-24">
+    <section
+      id="news"
+      className="overflow-hidden bg-ink px-4 py-16 sm:px-8 md:py-24"
+    >
       <div className="mx-auto max-w-[1440px]">
-        <h2 className="card-title">
-          Latest <span className="font-serif italic">news</span>
-        </h2>
+        {/* Section heading */}
+        <div className="flex flex-col justify-between gap-5 border-b border-white/10 pb-8 sm:flex-row sm:items-end">
+          <div>
+            <p className="eyebrow mb-4 uppercase tracking-[0.2em]">
+              From the research desk
+            </p>
 
-        <div ref={ref} className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {news.slice(0, 3).map((n) => {
-            const body = (
+            <h2 className="card-title">
+              Latest <span className="font-serif italic">news</span>
+            </h2>
+          </div>
+
+          <p className="max-w-sm text-sm leading-6 text-white/45 sm:text-right">
+            Research highlights, recent developments and updates
+            from our team.
+          </p>
+        </div>
+
+        {/* News cards */}
+        <div
+          ref={ref}
+          className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 "
+        >
+          {news.slice(0, 3).map((n, i) => {
+            const content = (
               <>
-                <time className="eyebrow uppercase">{n.date}</time>
-                <p className="mt-6 text-[17px] leading-snug text-white">{n.title}</p>
-                {n.href && (
-                  <span className="mt-auto pt-6 text-[14px] text-white/50 transition-colors group-hover:text-white" aria-hidden="true">
-                    Read more ↗
+                <div>
+                  <time className="eyebrow uppercase">
+                    {n.date}
+                  </time>
+
+                  <h3 className="mt-4 text-xl text-zinc-400 leading-snug tracking-tight text-white transition-colors duration-300 group-hover:text-zinc-300">
+                    {n.title}
+                  </h3>
+                </div>
+
+                <div className="mt-auto pt-8">
+                  <div className="h-px w-full bg-white/10 transition-colors duration-300 group-hover:bg-white/30" />
+                  <span className="mt-4 inline-flex items-center gap-2 text-sm text-white/45 transition-colors group-hover:text-white">
+                    {n.href ? 'Read full update' : 'Latest update'}
+                    {n.href && <span aria-hidden="true">→</span>}
                   </span>
-                )}
+                </div>
               </>
             )
-            const cls = 'card group flex min-h-[200px] flex-col p-7'
+
+            const cls =
+              'card group flex min-h-[270px] flex-col p-8 transition-colors duration-300 hover:bg-[rgba(252,252,252,0.08)] '
+
             return n.href ? (
-              <a key={n.title} href={n.href} target="_blank" rel="noreferrer" className={`${cls} transition-colors hover:bg-[rgba(252,252,252,0.08)]`}>
-                {body}
+              <a
+                key={n.title}
+                href={n.href}
+                target="_blank"
+                rel="noreferrer"
+                className={cls}
+              >
+                {content}
               </a>
             ) : (
-              <div key={n.title} className={cls}>
-                {body}
-              </div>
+              <article key={n.title} className={cls}>
+                {content}
+              </article>
             )
           })}
         </div>
