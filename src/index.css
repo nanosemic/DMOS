@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+/*
+ * Type and colour follow arox.com. Their sans (Aeonik) and serif (PP Editorial New) are
+ * commercial fonts, so free look-alikes (Geist, Instrument Serif) are used. Once licensed,
+ * add @font-face rules for "Aeonik" and "PP Editorial New" and they will be picked up first.
+ */
+
+@theme {
+  --font-sans: "Aeonik", "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Roboto Mono", ui-monospace, monospace;
+  --font-serif: "PP Editorial New", "Instrument Serif", ui-serif, Georgia, serif;
+
+  --color-ink: #0f0f11;
+  --color-coal: #131315;
+  --color-panel: #1b1b1e;
+  --color-line: #2a2a2d;
+  --color-mist: #8d8d93;
+  --color-bone: #fcfcfc;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background: var(--color-ink);
+  }
+  body {
+    @apply bg-ink font-sans text-bone antialiased;
+  }
+  ::selection {
+    background: var(--color-bone);
+    color: var(--color-ink);
+  }
+}
+
+/* Component values below are measured from arox.com */
+@layer components {
+  /* Roboto Mono 300 / 14px / .7px tracking, grey — dates, venues, small labels */
+  .eyebrow {
+    @apply font-mono text-[14px] leading-[1.2] font-light tracking-[0.7px] text-[rgba(140,140,140,0.95)];
+  }
+  /* nav pill: rgba(252,252,252,.05), 14.4px radius, blur(8px) saturate(1.5) */
+  .pill {
+    @apply rounded-[14.4px] bg-[rgba(252,252,252,0.05)] backdrop-blur-[8px] backdrop-saturate-150;
+  }
+  /* section cards: rgba(252,252,252,.05), 10px radius, no border */
+  .card {
+    @apply rounded-[10px] bg-[rgba(252,252,252,0.05)];
+  }
+  /* 32px / 40px card titles */
+  .card-title {
+    @apply text-[clamp(1.6rem,2.6vw,2rem)] leading-[1.25] font-normal text-white;
+  }
+  /* 16px / 20px body copy at 65% white */
+  .card-text {
+    @apply text-[16px] leading-[1.25] text-white/65;
+  }
+  /* frosted glass panel with Arox's bevel shadow (nav-panel-bevel-shadow) */
+  .glass {
+    background: rgba(252, 252, 252, 0.05);
+    backdrop-filter: blur(8px) saturate(150%);
+    -webkit-backdrop-filter: blur(8px) saturate(150%);
+    isolation: isolate;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.045),
+      inset 1.8px 3px 0 -2px rgba(255, 255, 255, 0.405),
+      inset -2px -2px 0 -2px rgba(255, 255, 255, 0.36),
+      inset -2.3px -5.9px 0.9px -5px rgba(255, 255, 255, 0.243),
+      inset -0.3px -1px 4px 0 rgba(0, 0, 0, 0.12),
+      inset -1.5px 2.5px 0 -2px rgba(0, 0, 0, 0.2),
+      inset 0 3px 4px -2px rgba(0, 0, 0, 0.2),
+      inset 1.4px -4.8px 0.9px -3.2px rgba(0, 0, 0, 0.09),
+      0 1px 5px 0 rgba(0, 0, 0, 0.1),
+      0 6px 16px 0 rgba(0, 0, 0, 0.08);
+  }
+  /* outlined button: 16px, 14px 16px padding, 6px radius */
+  .btn {
+    @apply inline-flex items-center gap-2 rounded-[6px] border border-white/70 px-4 py-[14px] text-[16px] leading-[1.2] text-white transition-colors hover:bg-white hover:text-ink;
+  }
+}
+
+/* Footer wordmark: parts rise ~58px into place one after another (useReveal adds .is-in) */
+.rise-parts > * {
+  transform: translateY(0.26em);
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.rise-parts.is-in > * {
+  transform: none;
+}
+.rise-parts.is-in > :nth-child(2) { transition-delay: 0.06s; }
+.rise-parts.is-in > :nth-child(3) { transition-delay: 0.12s; }
+.rise-parts.is-in > :nth-child(4) { transition-delay: 0.18s; }
+.rise-parts.is-in > :nth-child(5) { transition-delay: 0.24s; }
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(4px);
+  }
+}
+
+.hero-rise {
+  animation: rise 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) 0.4s both;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .rise-parts > * {
+    transform: none;
+  }
+  .animate-marquee,
+  .hero-rise {
+    animation: none;
+  }
+}
