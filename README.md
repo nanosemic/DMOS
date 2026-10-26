@@ -1,2 +1,3 @@
-# Invoice-maker
+# DMOS
+## Website for DMOS group IIT BBS
 
