@@ -129,7 +129,7 @@ export const pi = {
     { label: 'Awards', value: 'Prime Minister’s Research Fellowship · Institute Research Award, IIT Madras · AWSAR Award, DST' },
   ],
   links: [
-    { label: 'Google Scholar', href: 'https://scholar.google.co.in/citations?user=Eg-jYTgAAAAJ' },
+    { label: 'Google Scholar', href: 'https://scholar.google.co.in/citations?user=Eg-jYTgAAAAJ' ,src:"" },
     { label: 'ORCID', href: 'https://orcid.org/0000-0002-4339-9766' },
     { label: 'Faculty page', href: 'https://secs.iitbbs.ac.in/index.php/akshay/' },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/akshay-k-ak-8129066062/' },
@@ -212,11 +212,11 @@ export const publications = [
 ]
 
 export const collaborators = [
-  { name: 'Prof. Shreepad Karmalkar', org: 'IIT Madras; now Director, IIT Bhubaneswar', note: 'Ph.D. advisor · superjunction & SiC design' },
-  { name: 'Prof. Anant Agarwal', org: 'The Ohio State University', note: 'SiC MOSFET drift-layer design' },
-  { name: 'Dr. Sayan Dey', org: 'IIT Bhubaneswar · Nano Semic', note: 'Chemical & gas sensors' },
-  { name: 'Prof. P. V. Satyam', org: 'School of Basic Sciences, IIT Bhubaneswar', note: 'Al₂O₃/SiO₂ oxide interfaces' },
-  { name: 'Dr. Abhinav Arya', org: 'IIT Bhubaneswar', note: 'Power devices industry centre proposal' },
+  { name: 'Prof. Shreepad Karmalkar', org: 'IIT Madras; now Director, IIT Bhubaneswar', note: 'Ph.D. advisor · superjunction & SiC design' ,src:"Collaborations/Shreepad Karmalkar.png"},
+  { name: 'Prof. Anant Agarwal', org: 'The Ohio State University', note: 'SiC MOSFET drift-layer design', src:"Collaborations/Anant Agarwal.jfif" },
+  { name: 'Dr. Sayan Dey', org: 'IIT Bhubaneswar · Nano Semic', note: 'Chemical & gas sensors' ,src:"Collaborations/Sayan Dey.png"},
+  { name: 'Prof. P. V. Satyam', org: 'School of Basic Sciences, IIT Bhubaneswar', note: 'Al₂O₃/SiO₂ oxide interfaces' ,src:"Collaborations/P. V. Satyam.png" },
+  { name: 'Dr. Abhinav Arya', org: 'IIT Bhubaneswar', note: 'Power devices industry centre proposal',src:"Collaborations/Abhinav Arya.png" },
 ]
 
 // Funders, industry and academic partners (Micron is his former employer, not a partner)

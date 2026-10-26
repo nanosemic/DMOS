@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { group, pi, scholars } from '../../../data/site'
 import { useCardsReveal } from '../../../hooks'
-import { Dot } from 'lucide-react'
+import { ArrowUpRight, Dot } from 'lucide-react'
 
 const initials = (name) =>
   name
@@ -63,11 +63,18 @@ export default function People() {
             </dl>
 
             <div className="mt-auto flex flex-wrap gap-3 pt-10">
-              {pi.links.map((l) => (
-                <a key={l.label} href={l.href} target="_blank" rel="noreferrer" className="btn py-3 text-[15px]">
-                  {l.label}
-                </a>
-              ))}
+              {pi.links.map((l) => {
+                const label = l.label.toLowerCase();
+                const logo = label === "linkedin" ? "/icon/linkedin-app-white-icon.png" : label.includes("orcid") ? "/icon/orcid-dark.png" : label.includes("google scholar") || label.includes("scholar") ? "/icon/googlescholar-dark.png" : null;
+                return (
+                  <a key={l.label} href={l.href} target="_blank" rel="noreferrer" className="group mt-12 inline-flex w-fit cursor-pointer items-center gap-3 rounded-md border border-[#292d30] bg-transparent px-4 py-2.5 text-sm font-normal text-[#f0f0f0] transition-colors duration-300 ease-out hover:border-[#6e727a] hover:text-white">
+                    {logo && (
+                      <img src={logo} alt="" className="h-5 w-5 object-contain"/>
+                    )}
+                    {l.label}
+                  </a>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -76,11 +83,28 @@ export default function People() {
         <div className="mt-36 flex flex-col justify-between gap-4 md:flex-row md:items-end ">
           <h3 className="card-title">
             Ph.D. <span className="font-serif italic">scholars</span>
+            <p className="card-text max-w-4xl text-zinc-400">
+              Our research team works across power semiconductor devices, TCAD simulation,
+              fabrication and characterisation, advancing next-generation device technologies.
+            </p>
           </h3>
-        <p className="card-text max-w-5xl">
-          Our research team works across power semiconductor devices, TCAD simulation,
-          fabrication and characterisation, advancing next-generation device technologies.
-        </p>
+          <button
+            type="button"
+            className="group mt-12 inline-flex w-fit cursor-pointer items-center gap-3
+              rounded-md border border-[#292d30] bg-transparent
+              px-4 py-2.5 text-sm font-normal text-[#f0f0f0]
+              transition-colors duration-150 ease-out
+              hover:border-[#6e727a] hover:text-white"
+          >
+            <span>View All Scholars</span>
+            <ArrowUpRight
+              size={15}
+              strokeWidth={1.5}
+              className="text-[#a1a4a5] transition-transform duration-150
+                group-hover:-translate-y-0.5 group-hover:translate-x-0.5
+                group-hover:text-white"
+            />
+          </button>
         </div>
 
         <div ref={teamRef} className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">

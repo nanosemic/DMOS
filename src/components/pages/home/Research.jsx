@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import { projects, researchIntro, themes } from '../../../data/site'
 import { clamp01, smoothstep, useCardsReveal, useScrub } from '../../../hooks'
 import ThemeArt from './ThemeArt'
+import { ArrowUpRight } from 'lucide-react'
 
 const DESKTOP = 1024
 
@@ -17,7 +18,7 @@ export default function Research() {
   const barRef = useRef(null)
   const scrollIndex = useRef(0)
   const projectsRef = useRef(null)
-  useCardsReveal(projectsRef, 0.25)
+  useCardsReveal(projectsRef, 0.05)
   const theme = themes[active]
 
   // pinned tour: scroll progress through the tall track picks the theme
@@ -147,26 +148,109 @@ export default function Research() {
       </div>
 
       {/* What they are working on right now */}
-      <div className="mx-auto max-w-[1440px] px-4 pb-16 sm:px-8 md:pb-24 lg:pt-16">
-        <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
-          <h3 className="text-[clamp(1.4rem,2vw,1.75rem)] text-white">
-            Current <span className="font-serif italic">projects</span>
-          </h3>
-          <p className="eyebrow">Led by Dr. Akshay K. as principal investigator</p>
+
+<section className="mx-auto max-w-[1440px] px-4 pb-20 sm:px-8 md:pb-28 lg:pt-20">
+  {/* Section heading */}
+  <div className="flex flex-col justify-between gap-6 border-b border-white/15 pb-8 md:flex-row md:items-end">
+    <div>
+      <h3 className="card-title ">
+        Current <span className="font-serif italic ">projects.</span>
+      </h3>
+      <p className="eyebro mt-3 text-zinc-400">
+        Principal Investigator <span className="text-zinc-500">/</span>{" "}
+        Dr. Akshay K.
+      </p>
+    </div>
+
+    <div className="max-w-sm md:text-right">
+        <button
+    type="button"
+    className="group mt-12 inline-flex w-fit cursor-pointer items-center gap-3
+      rounded-md border border-[#292d30] bg-transparent
+      px-4 py-2.5 text-sm font-normal text-[#f0f0f0]
+      transition-colors duration-150 ease-out
+      hover:border-[#6e727a] hover:text-white"
+  >
+    <span>View All Projects</span>
+    <ArrowUpRight
+      size={15}
+      strokeWidth={1.5}
+      className="text-[#a1a4a5] transition-transform duration-150
+        group-hover:-translate-y-0.5 group-hover:translate-x-0.5
+        group-hover:text-white"
+    />
+  </button>
+    </div>
+  </div>
+
+  {/* Project cards */}
+  <div ref={projectsRef} className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    {projects.map((p, i) => (
+      <article
+        key={p.title}
+        className="group relative flex min-h-[290px] flex-col overflow-hidden
+          rounded-2xl border border-white/10 bg-white/[0.025] p-6
+          transition-all duration-500 hover:-translate-y-1
+          hover:border-white/25 hover:bg-white/[0.055]
+          sm:p-8"
+      >
+
+        {/* Funder and period */}
+        <div className="relative flex items-start justify-between gap-4">
+          <span className="max-w-[65%] text-xs font-medium uppercase tracking-[0.16em] text-white/75 transition-all duration-300 group-hover:text-zinc-100">
+            {p.funder}
+          </span>
+          <span className="shrink-0 rounded-full border border-white/10 px-3 py-1 text-[10px] tracking-wide text-white/50 transition-all duration-300 group-hover:text-zinc-100">
+            {p.period}
+          </span>
         </div>
-        <div ref={projectsRef} className="mt-6 grid gap-5 md:grid-cols-3">
-          {projects.map((p) => (
-            <article key={p.title} className="card flex flex-col p-7">
-              <div className="flex items-baseline justify-between gap-4">
-                <span className="text-[15px] text-white">{p.funder}</span>
-                <span className="eyebrow whitespace-nowrap">{p.period}</span>
-              </div>
-              <p className="mt-5 text-[17px] leading-snug text-white/90">{p.title}</p>
-              {p.note && <p className="eyebrow mt-auto pt-5 text-[12px]">{p.note}</p>}
-            </article>
-          ))}
+
+        {/* Accent line */}
+        <div className="relative mt-4 h-px w-full bg-white/10">
+          <div className="h-px w-10 bg-white/60 transition-all duration-500 group-hover:w-1/3 " />
         </div>
-      </div>
+
+        {/* Project title */}
+        <h4 className="relative mt-7 text-lg leading-snug tracking-tight text-white/90 transition-colors duration-300 group-hover:text-white sm:text-xl">
+          {p.title}
+        </h4>
+
+        {/* Optional note */}
+        {p.note && (
+          <p className="relative mt-auto pt-4 text-xs leading-relaxed text-white/45 transition-all duration-300 group-hover:text-zinc-400">
+            {p.note}
+          </p>
+        )}
+
+        {/* Bottom indicator */}
+        <div className="mt-auto flex items-center justify-between pt-8">
+          <span className="text-[10px] uppercase tracking-[0.22em] text-white/35 transition-all duration-300 group-hover:text-zinc-300">
+            Research initiative
+          </span>
+          <span
+            aria-hidden="true"
+            className="flex size-8 items-center justify-center rounded-full
+              border border-white/10 text-white/50 transition-all duration-300
+              group-hover:border-white/40 group-hover:bg-white
+              group-hover:text-black"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              className="size-4 transition-transform duration-300"
+            >
+              <path d="M7 17 17 7M7 7h10v10" />
+            </svg>
+          </span>
+        </div>
+      </article>
+    ))}
+  </div>
+
+</section>
+
     </section>
   )
 }

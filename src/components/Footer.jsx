@@ -101,11 +101,11 @@ export default function Footer() {
         </div>
 
         {/* Oversized wordmark */}
-        <div className="border-t border-white/10 px-4 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pt-12">
+        <div className="border-t border-white/10 px-4 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pt-12 ">
           <div
             ref={markRef}
             aria-hidden="true"
-            className={`rise-parts ${markShown ? 'is-in' : ''} flex items-end gap-2 overflow-hidden whitespace-nowrap text-[18vw] font-normal leading-[0.82] tracking-[-0.075em] text-white select-none sm:gap-4 lg:text-[min(16.5vw,15rem)]`}
+            className={`rise-parts ${markShown ? 'is-in' : ''} flex items-end gap-2 overflow-hidden whitespace-nowrap text-wrap text-[18vw] font-normal leading-[0.82] tracking-[-0.075em] text-white select-none sm:gap-4 lg:text-[min(16.5vw,15rem)]`}
           >
             <img
               src={group.logo}
@@ -114,6 +114,7 @@ export default function Footer() {
             />
             <span>Akshay</span>
             <span className="tracking-[-0.08em]">K.</span>
+
           </div>
 
           {/* Copyright and credits */}

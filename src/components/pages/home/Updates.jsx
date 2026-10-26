@@ -2,6 +2,7 @@
 import { useRef } from 'react'
 import { news } from '../../../data/site'
 import { useCardsReveal } from '../../../hooks'
+import { ArrowRight } from 'lucide-react'
 
 export default function Updates() {
   const ref = useRef(null)
@@ -40,20 +41,20 @@ export default function Updates() {
             const content = (
               <>
                 <div>
-                  <time className="eyebrow uppercase">
+                  <time className="text-zinc-400 text-xs  uppercase">
                     {n.date}
                   </time>
 
-                  <h3 className="mt-4 text-xl text-zinc-400 leading-snug tracking-tight text-white transition-colors duration-300 group-hover:text-zinc-300">
+                  <h3 className="mt-4 text-xl text-zinc-200 leading-snug tracking-tight text-white transition-colors duration-300 group-hover:text-white">
                     {n.title}
                   </h3>
                 </div>
 
                 <div className="mt-auto pt-8">
                   <div className="h-px w-full bg-white/10 transition-colors duration-300 group-hover:bg-white/30" />
-                  <span className="mt-4 inline-flex items-center gap-2 text-sm text-white/45 transition-colors group-hover:text-white">
+                  <span className="mt-4 items-center gap-2 text-sm text-white/45 transition-colors group-hover:text-white flex items-center">
                     {n.href ? 'Read full update' : 'Latest update'}
-                    {n.href && <span aria-hidden="true">→</span>}
+                    <span aria-hidden="true"><ArrowRight size={12}/></span>
                   </span>
                 </div>
               </>

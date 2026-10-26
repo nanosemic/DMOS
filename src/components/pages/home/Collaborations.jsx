@@ -21,10 +21,10 @@ export default function Collaborations() {
             className="card flex min-h-[220px] flex-col p-7 transition-colors hover:bg-[rgba(252,252,252,0.08)]"
           >
             {/* Collaborator photo */}
-            <div className="mb-5 h-24 w-24 overflow-hidden rounded-full border border-white/15 bg-white/5">
-              {c.image ? (
+            <div className="mb-5 w-24 aspect-square overflow-hidden rounded-full border border-white/15 bg-white/5">
+              {c.src ? (
                 <img
-                  src={c.image}
+                  src={c.src}
                   alt={c.name}
                   className="h-full w-full object-cover"
                   loading="lazy"
