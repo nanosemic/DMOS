@@ -1,5 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { group, navLinks, pi } from '../data/site'
+
+// '/research' is a page; '#people' etc. are home-page sections, reachable from any page
+const toRoute = (href) => (href.startsWith('#') ? { pathname: '/', hash: href } : href)
 
 export function Logo({ className = '' }) {
   return (
@@ -21,6 +25,25 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // after navigating: scroll to the #section if there is one, otherwise start at the top.
+  // Arriving from another page jumps straight there; within the same page it glides.
+  const location = useLocation()
+  const lastPath = useRef(location.pathname)
+  useEffect(() => {
+    const changedPage = lastPath.current !== location.pathname
+    lastPath.current = location.pathname
+    if (!location.hash) {
+      if (changedPage) window.scrollTo({ top: 0, behavior: 'instant' })
+      return
+    }
+    // give the page a moment to render before looking for the section
+    const id = setTimeout(
+      () => document.querySelector(location.hash)?.scrollIntoView({ behavior: changedPage ? 'instant' : 'smooth' }),
+      60,
+    )
+    return () => clearTimeout(id)
+  }, [location.pathname, location.hash])
+
   return (
     <header className="fixed inset-x-0 top-4 z-50 px-4 w-full flex justify-center items-center">
       <nav
@@ -28,19 +51,21 @@ export default function Navbar() {
           scrolled ? 'w-[70vh]' : 'w-[100vh]'
         }`}
       >
-        <a href="#top" className="pill flex items-center px-5 py-3 text-sm text-bone">
+        <Link to="/" className="pill flex items-center px-5 py-3 text-sm text-bone">
           <Logo />
-        </a>
+        </Link>
 
         <ul className="pill hidden items-center gap-1 px-2 md:flex">
           {navLinks.map((l) => (
             <li key={l.href}>
-              <a
-                href={l.href}
-                className="block rounded-[4px] px-2.5 py-1 text-[14px] text-bone/75 transition-colors hover:bg-white/[0.06] hover:text-bone"
+              <Link
+                to={toRoute(l.href)}
+                className={`block rounded-[4px] px-2.5 py-1 text-[14px] transition-colors hover:bg-white/[0.06] hover:text-bone ${
+                  location.pathname === l.href ? 'bg-white/[0.08] text-bone' : 'text-bone/75'
+                }`}
               >
                 {l.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -63,13 +88,13 @@ export default function Navbar() {
         <ul className="pill mx-auto mt-2 max-w-sm p-2 md:hidden">
           {navLinks.map((l) => (
             <li key={l.href}>
-              <a
-                href={l.href}
+              <Link
+                to={toRoute(l.href)}
                 onClick={() => setOpen(false)}
                 className="block rounded-xl px-4 py-3 text-sm text-bone/80 hover:bg-white/[0.06]"
               >
                 {l.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

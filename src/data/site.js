@@ -18,7 +18,7 @@ export const group = {
 }
 
 export const navLinks = [
-  { label: 'Research', href: '#research' },
+  { label: 'Research', href: '/research' }, // its own page; the rest are home-page sections
   { label: 'People', href: '#people' },
   { label: 'Publications', href: '#publications' },
   { label: 'Collaborations', href: '#collaborations' },
