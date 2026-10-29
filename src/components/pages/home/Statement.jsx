@@ -82,7 +82,7 @@ export default function Statement() {
           <div key={s.label} className="card flex flex-col-reverse p-6">
             <dt>
               <span className="mt-3 block text-[15px] text-white">{s.label}</span>
-              <span className="eyebrow mt-1 block text-[12px]">{s.note}</span>
+              <span className="eyebrow mt-1 block text-[12px] mt-6">{s.note}</span>
             </dt>
             <dd className="text-[clamp(2rem,3.3vw,2.625rem)] leading-none text-white">{s.value}</dd>
           </div>

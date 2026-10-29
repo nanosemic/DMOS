@@ -41,7 +41,7 @@ export default function Collaborations() {
 
             <h3 className="text-xl text-white">{c.name}</h3>
             <p className="card-text mt-2 text-[15px]">{c.org}</p>
-            <p className="eyebrow mt-auto pt-6">{c.note}</p>
+            <p className="eyebrow mt-auto text-xs pt-6">{c.note}</p>
           </div>
         ))}
 
@@ -73,11 +73,13 @@ export default function Collaborations() {
       <div className="relative mt-6 [mask-image:linear-gradient(90deg,transparent,black_12%,black_88%,transparent)]">
         <div className="animate-marquee flex w-max gap-14 whitespace-nowrap">
           {[...partners, ...partners].map((p, i) => (
-            <span key={i} className="text-[clamp(1.4rem,2.6vw,2.2rem)] text-white/30 hover:text-white transition-all duration-300 cursor-pointer">
+            <div className='flex items-center text-white/40 '>
+            <span key={i} className="text-[clamp(1.4rem,2.6vw,2.2rem)]  hover:text-white transition-all duration-300 cursor-pointer">
               {p}
               {/* <span className="ml-14 font-mono text-[0.6em] text-white/15">/</span> */}
-              <DotIcon className='inline-flex ml-14'/>
             </span>
+            <DotIcon className='inline-flex ml-14 eyebrow'/>
+            </div>
           ))}
         </div>
       </div>
