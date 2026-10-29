@@ -78,7 +78,7 @@ export default function ResearchHero() {
 
   return (
     <section ref={sectionRef} id="top" className="relative h-[100svh] min-h-[640px] overflow-hidden bg-ink">
-      <div ref={sceneRef} className="absolute inset-0">
+      <div ref={sceneRef} className="absolute inset-x-0 top-[16%] bottom-0 lg:top-0">
         <DeviceScene
           className="h-full w-full"
           explodeRef={explodeRef}

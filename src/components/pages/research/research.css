@@ -72,8 +72,166 @@
   }
 }
 
+/* sequence: "—— label ——" eyebrow, as in the reference */
+.seq-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+.seq-line > span {
+  display: block;
+  width: 48px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* sequence progress rail ticks */
+.seq-tick {
+  color: rgba(255, 255, 255, 0.3);
+  transition: color 0.4s ease;
+}
+.seq-tick span {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.seq-tick.is-active {
+  color: #fff;
+}
+.seq-tick.is-active span {
+  opacity: 0.7;
+}
+/* research themes: accent (kept monochrome), dot fields and the labels pointing at the image */
+.themes {
+  --acc: #ffffff;
+}
+.theme-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1.2px);
+  background-size: 14px 14px;
+  mask-image: radial-gradient(closest-side, #000, transparent);
+}
+.theme-dot {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--acc);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12);
+}
+.theme-callouts path {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.45);
+  stroke-width: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--draw, 0));
+}
+
+/* capabilities workflow: a rail that fills with scroll (down the side on phones, across on desktop)
+   and a node per stage that lights up when the fill reaches it */
+.cap-rail {
+  position: absolute;
+  top: 8px;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.12);
+}
+.cap-rail::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.7);
+  transform: scaleY(var(--fill, 0));
+  transform-origin: top;
+}
+.cap-node {
+  position: absolute;
+  top: 4px;
+  left: -4px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: #0f0f11;
+  transition: background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.cap-stage.is-on .cap-node {
+  background: #fff;
+  border-color: #fff;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
+}
+@media (min-width: 1024px) {
+  .cap-rail {
+    top: 0;
+    right: 0;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+  }
+  .cap-rail::after {
+    transform: scaleX(var(--fill, 0));
+    transform-origin: left;
+  }
+  .cap-node {
+    top: -4px;
+    left: 0;
+  }
+}
+
+/* project cards: the ring and the mini timeline fill to the elapsed share as each card arrives
+   (--k is set on the card from scroll); the "ongoing" dot pulses */
+.proj-ring {
+  stroke-dashoffset: calc(var(--ring) - var(--done) * var(--k, 0));
+}
+.proj-line {
+  transform: scaleX(var(--k, 0));
+  transform-origin: left;
+}
+.proj-live {
+  animation: proj-pulse 2s ease-in-out infinite;
+}
+@keyframes proj-pulse {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* work with us: the open panel widens and shows its details; the others stay narrow */
+.join-panel {
+  transition: flex-grow 0.7s cubic-bezier(0.2, 0.7, 0.2, 1), background-color 0.4s ease, border-color 0.4s ease;
+}
+.join-plus {
+  transition: transform 0.5s ease, background-color 0.3s ease, color 0.3s ease;
+}
+.join-panel.is-open .join-plus {
+  transform: rotate(45deg);
+}
+.join-panel:not(.is-open) .join-body {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .join-panel {
+    flex: 1 1 0;
+  }
+  .join-panel.is-open {
+    flex-grow: 2.4;
+  }
+  /* keep the details laid out at full width so they fade in instead of reflowing */
+  .join-body {
+    min-width: min(34vw, 520px);
+    padding-top: 0.5rem;
+    transition: opacity 0.5s ease 0.2s;
+  }
+  .join-panel:not(.is-open) .join-body {
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    transition: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .line-mask > span,
+  .proj-live,
   .hero-facts > div,
   .scroll-cue > span {
     animation: none;

@@ -83,7 +83,8 @@ const easeOutBack = (t) => {
   return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2)
 }
 
-export default function DeviceScene({ className = '', explodeRef, spinRef, highlightRef, anchors = [], onProject }) {
+// `lookAtY` frames the model vertically: higher values sit it lower on screen
+export default function DeviceScene({ className = '', explodeRef, spinRef, highlightRef, anchors = [], onProject, lookAtY = -0.35 }) {
   const mountRef = useRef(null)
   const propsRef = useRef({ anchors, onProject })
   useEffect(() => {
@@ -268,7 +269,7 @@ export default function DeviceScene({ className = '', explodeRef, spinRef, highl
       composer.setSize(width, height)
       camera.aspect = width / height
       camera.position.set(0, 1.2, portrait ? 23 : 19)
-      camera.lookAt(0, -0.35, 0)
+      camera.lookAt(0, lookAtY, 0)
       // phones: lift the device into the space between the title and the text below
       if (portrait) camera.setViewOffset(width, height, 0, height * 0.17, width, height)
       else camera.clearViewOffset()
@@ -327,7 +328,7 @@ export default function DeviceScene({ className = '', explodeRef, spinRef, highl
       // per-material highlight (materials are shared within a layer)
       const glow = (m, id) => {
         m.emissive.setScalar(1)
-        m.emissiveIntensity = Math.max(lit[id] ?? 0, 0) * 0.35
+        m.emissiveIntensity = Math.max(lit[id] ?? 0, 0) * 0.5
       }
       glow(mat.substrate, 'substrate')
       glow(mat.nPillar, 'drift')
@@ -339,7 +340,9 @@ export default function DeviceScene({ className = '', explodeRef, spinRef, highl
       // gate switches on in cycles once assembled; electrons flow with it
       const cycle = (t - BUILT) % 4
       const on = built * (cycle < 2.6 ? smooth(cycle / 0.4) : 1 - smooth((cycle - 2.6) / 0.6))
-      mat.gate.emissiveIntensity = on * 0.55 + Math.max(lit.gate ?? 0, 0) * 0.4
+      // while another layer is being explained, keep the gate pulse quiet so it doesn't compete
+      const quiet = hi && hi !== 'gate' ? 0.08 : 1
+      mat.gate.emissiveIntensity = on * 0.55 * quiet + Math.max(lit.gate ?? 0, 0) * 0.5
       flowMat.uniforms.uOpacity.value = on * (1 - explode * 0.5)
       for (let i = 0; i < FLOW; i++) {
         const f = flowState[i]
@@ -410,7 +413,7 @@ export default function DeviceScene({ className = '', explodeRef, spinRef, highl
       renderer.dispose()
       mount.removeChild(renderer.domElement)
     }
-  }, [explodeRef, spinRef, highlightRef])
+  }, [explodeRef, spinRef, highlightRef, lookAtY])
 
   return <div ref={mountRef} aria-hidden="true" className={className} />
 }

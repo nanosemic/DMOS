@@ -31,9 +31,11 @@ export function onFrame(fn) {
  * Scroll-scrubbed animation with eased catch-up, like ScrollTrigger's `scrub: true` smoothing.
  * `progress(rect, vh)` maps the element's viewport rect to a target value each frame; the hook
  * eases toward it and calls `apply(value, el)` when it changes. With reduced motion the
- * `rest` value is applied once and nothing animates.
+ * `rest` value is applied once and nothing animates, unless `follow` is set: then the value
+ * tracks the scroll position directly, without easing (for pinned sections whose content is
+ * only reachable by scrolling through them).
  */
-export function useScrub(ref, progress, apply, { smoothing = 0.12, rest = 1 } = {}) {
+export function useScrub(ref, progress, apply, { smoothing = 0.12, rest = 1, follow = false } = {}) {
   const fns = useRef({ progress, apply })
   useEffect(() => {
     fns.current = { progress, apply }
@@ -42,22 +44,24 @@ export function useScrub(ref, progress, apply, { smoothing = 0.12, rest = 1 } = 
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    if (prefersReducedMotion()) {
+    const reduced = prefersReducedMotion()
+    if (reduced && !follow) {
       fns.current.apply(rest, el)
       return
     }
+    const ease = reduced ? 1 : smoothing
     let value = null
     let last = null
     return onFrame(() => {
       const target = fns.current.progress(el.getBoundingClientRect(), window.innerHeight)
-      value = value === null ? target : value + (target - value) * smoothing
+      value = value === null ? target : value + (target - value) * ease
       if (Math.abs(target - value) < 0.0004) value = target
       if (last === null || Math.abs(value - last) > 0.0002) {
         last = value
         fns.current.apply(value, el)
       }
     })
-  }, [ref, smoothing, rest])
+  }, [ref, smoothing, rest, follow])
 }
 
 /**
