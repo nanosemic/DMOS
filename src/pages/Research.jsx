@@ -8,14 +8,14 @@ import ResearchJoin from '../components/pages/research/ResearchJoin'
 // Research page, built section by section.
 function Research() {
   return (
-    <>
+    <div className="research">
       <ResearchHero />
       <ResearchSequence />
       <ResearchThemes />
       <ResearchCapabilities />
       <ResearchProjects />
       <ResearchJoin />
-    </>
+    </div>
   )
 }
 

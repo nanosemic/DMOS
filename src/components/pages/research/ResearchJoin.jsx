@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react'
-import { clamp01, smoothstep, useScrub } from '../../../hooks'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { clamp01, prefersReducedMotion, smoothstep, useScrub } from '../../../hooks'
 import { researchJoin } from '../../../data/research'
 
 /*
@@ -8,7 +8,7 @@ import { researchJoin } from '../../../data/research'
  * phones they stack and open on tap). The heading rises in, then the panels follow one after
  * another, scrubbed by scroll. (Email and profile links are in the site footer just below.)
  */
-const { eyebrow, title, intro, paths } = researchJoin
+const { eyebrow, title, words, intro, paths } = researchJoin
 const pad = (n) => String(n).padStart(2, '0')
 
 // entrance progress of an element: 0 when its top is at 92% of the viewport, 1 at 55%
@@ -19,6 +19,53 @@ const riseChildren = (v, el, step = 0.15) =>
     c.style.opacity = k
     c.style.transform = k >= 1 ? '' : `translate3d(0, ${(1 - k) * 44}px, 0)`
   })
+
+/*
+ * The italic words in the heading take turns: the current word's letters roll up and out one after
+ * another while the next word's letters roll in from below, and the gap they sit in eases to the
+ * new word's width so the line closes up.
+ * All words share one grid cell; under reduced motion only the first is shown.
+ */
+function RotatingWords() {
+  const [i, setI] = useState(0)
+  const [width, setWidth] = useState(null)
+  const refs = useRef([])
+
+  useEffect(() => {
+    if (prefersReducedMotion()) return
+    const id = setInterval(() => setI((n) => (n + 1) % words.length), 1900)
+    return () => clearInterval(id)
+  }, [])
+
+  // measure the current word (again once the serif font has loaded, and on resize)
+  useLayoutEffect(() => {
+    const measure = () => setWidth(refs.current[i]?.offsetWidth ?? null)
+    measure()
+    document.fonts?.ready.then(measure)
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [i])
+
+  return (
+    <span className="join-words inline-grid justify-items-start text-left align-bottom" style={width ? { width } : undefined}>
+      <span className="sr-only">{words[0]}</span>
+      {words.map((w, n) => (
+        <em
+          key={w}
+          ref={(el) => (refs.current[n] = el)}
+          aria-hidden="true"
+          className={`font-serif font-normal whitespace-nowrap [grid-area:1/1] ${n === i ? 'is-in' : n === (i - 1 + words.length) % words.length ? 'is-out' : ''}`}
+        >
+          {[...w].map((ch, k) => (
+            <span key={k} style={{ '--i': k }}>
+              {ch === ' ' ? ' ' : ch}
+            </span>
+          ))}
+        </em>
+      ))}
+    </span>
+  )
+}
 
 export default function ResearchJoin() {
   const [open, setOpen] = useState(0)
@@ -41,7 +88,7 @@ export default function ResearchJoin() {
           <h2 className="mt-5 text-[clamp(2.6rem,5.4vw,5.2rem)] leading-[1] font-normal tracking-[-0.02em] text-white opacity-0">
             {title[0]}
             <br />
-            <em className="font-serif font-normal">{title[1]}</em>
+            <RotatingWords />
             {title[2]}
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-[16px] leading-relaxed text-white/60 opacity-0">{intro}</p>

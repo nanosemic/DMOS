@@ -243,3 +243,49 @@
     transition: none;
   }
 }
+
+/* trial: one warm accent colour for the Research page text (delete this block to go back to
+   monochrome). Covers the italic serif words in headings, the small labels and the themes accent. */
+.research {
+  --tint: #e2a66b;
+}
+.research .themes {
+  --acc: var(--tint);
+}
+.research em.font-serif,
+.research .eyebrow {
+  color: var(--tint);
+}
+.research .seq-line > span {
+  background: color-mix(in srgb, var(--tint) 55%, transparent);
+}
+
+/* join heading: the italic words that take turns (see RotatingWords). Each word is clipped just
+   outside its letters (room for the italic overhang and descenders); its letters roll through. */
+.join-words {
+  transition: width 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.join-words > em {
+  clip-path: inset(-0.05em -0.3em -0.25em -0.3em);
+}
+.join-words > em > span {
+  display: inline-block;
+  transform: translateY(135%);
+}
+.join-words > em.is-in > span,
+.join-words > em.is-out > span {
+  transition: transform 0.42s cubic-bezier(0.7, 0, 0.2, 1);
+  transition-delay: calc(var(--i) * 18ms);
+}
+.join-words > em.is-in > span {
+  transform: none;
+}
+.join-words > em.is-out > span {
+  transform: translateY(-135%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .join-words,
+  .join-words > em > span {
+    transition: none !important;
+  }
+}

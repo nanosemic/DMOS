@@ -266,6 +266,8 @@ export const researchProjects = {
 export const researchJoin = {
   eyebrow: 'Work with us',
   title: ['Build the next', 'power device', ' with us'], // middle part is set in italic
+  // the italic words take turns in the heading, starting with title[1]; all are the group's themes
+  words: ['power device', 'SiC MOSFET', 'superjunction', 'gas sensor', 'memory device'],
   intro: 'The D-MOS group at IIT Bhubaneswar works with Ph.D. scholars, students and industry on power semiconductor devices, from TCAD to the lab.',
   paths: [
     {

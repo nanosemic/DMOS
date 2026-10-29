@@ -125,3 +125,13 @@
     animation: none;
   }
 }
+
+/* trial: one cool accent colour for the home page text (delete this block to go back to
+   monochrome). Scoped to the home sections (the page that has #impact), so nav and footer stay. */
+:has(> #impact) > section {
+  --tint: #b8a2ff;
+}
+:has(> #impact) > section :is(h1, h2, h3) .font-serif,
+:has(> #impact) > section .eyebrow {
+  color: var(--tint);
+}
