@@ -252,6 +252,7 @@ export default function GenesisScene({ className = '' }) {
       })
       composer.dispose()
       renderer.dispose()
+      renderer.forceContextLoss() // free the WebGL context now; browsers keep only ~16 alive
       mount.removeChild(renderer.domElement)
     }
   }, [])

@@ -411,6 +411,7 @@ export default function DeviceScene({ className = '', explodeRef, spinRef, highl
       pmrem.dispose()
       composer.dispose()
       renderer.dispose()
+      renderer.forceContextLoss() // free the WebGL context now; browsers keep only ~16 alive
       mount.removeChild(renderer.domElement)
     }
   }, [explodeRef, spinRef, highlightRef, lookAtY])

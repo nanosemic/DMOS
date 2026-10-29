@@ -14,7 +14,14 @@ export const smoothstep = (v) => {
 const subscribers = new Set()
 let ticking = false
 const loop = () => {
-  subscribers.forEach((fn) => fn())
+  // one failing effect must not stop the loop for every other effect on the page
+  subscribers.forEach((fn) => {
+    try {
+      fn()
+    } catch (err) {
+      console.error(err)
+    }
+  })
   if (subscribers.size) requestAnimationFrame(loop)
   else ticking = false
 }

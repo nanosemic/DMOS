@@ -303,6 +303,7 @@ export default function ThemeStack({ items, focusRef, className = '' }) {
       })
       geo.dispose()
       renderer.dispose()
+      renderer.forceContextLoss() // free the WebGL context now; browsers keep only ~16 alive
       renderer.domElement.remove()
     }
   }, [items, focusRef])
